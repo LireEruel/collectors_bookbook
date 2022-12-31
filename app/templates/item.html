@@ -1,12 +1,24 @@
 <html>
 
 <head>
-    <title>Item Details</title>
+    <title>{{title}}</title>
+    <link href="https://unpkg.com/mvp.css" rel="stylesheet" />
 </head>
 
 <body>
-    <h1>Item ID: {{ id }}</h1>
-    <p>{{data}}</p>
+    <header>
+        <h1>콜렉터 북북이</h1>
+    </header>
+    <center>
+        <form id="search_form" action="/search">
+            <input type="search" placeholder="keyword" id="search_input" name="q" />
+            <button type="submit">검색</button>
+        </form>
+    </center>
+
+    <main>
+        {{keyword}}
+    </main>
 </body>
 
 </html>
