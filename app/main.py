@@ -1,16 +1,15 @@
-from typing import Union
-
-from fastapi import FastAPI
+from pathlib import Path
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
+BASE_DIR = Path(__file__).resolve().parent
+templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
 
-@app.get("/hello")
-def read_root():
-    print("hello world")
-    return {"Hello": "Fastapi"}
-
-
-@app.get("/items/{item_id}/{xyz}")
-def read_item(item_id: int, xyz: str, q: Union[str, None] = None):
-    return {"item_id": item_id, "xyz": xyz, "q": q}
+@app.get("/items/{id}", response_class=HTMLResponse)
+async def read_item(request: Request, id: str):
+    return templates.TemplateResponse(
+        "item.html", {"request": request, "id": id, "data": "hello fast api"}
+    )
